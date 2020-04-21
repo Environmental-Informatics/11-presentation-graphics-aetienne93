@@ -219,13 +219,7 @@ if __name__ == '__main__':
     rank_tippe= stats.rankdata(tippeFlow['Peak Flow'], method='average') 
     rank_tippe_2=rank_tippe[::-1]
     exceedence_tippe=[(rank_tippe_2[i]/(len(tippeFlow)+1)) for i in range(len(tippeFlow))]
-    '''
-    ep_tippe=tippe_met.drop(columns=['site_no', 'Mean Flow', 'Median Flow', 'Coeff Var', 'Skew', 'Tqmean', 'R-B Index', '7Q', '3xMedian'])
-    tippe_flow=ep_tippe.sort_values('Peak Flow', ascending=False)
-    tippe_ranks1=stats.rankdata(tippe_flow['Peak Flow'], method='average')
-    tippe_ranks2=tippe_ranks1[::-1]
-    tippe_ep=[(tippe_ranks2[i]/(len(tippe_flow)+1)) for i in range(len(tippe_flow))]
-    '''
+
     
     #assign rank to each value 
     #peakTippe_sort['Rank'] = np.arange(start = 1, stop = 51, step =1) 
