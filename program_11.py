@@ -158,7 +158,7 @@ if __name__ == '__main__':
              AnMet['Coeff Var'][AnMet['Station'] == 'Tippe'], 'black', linestyle='None',marker='.', label='Tippecanoe') 
     #filter for Wildcat 
     plt.plot(AnMet.index[AnMet['Station'] == 'Wildcat'],
-             AnMet['Coeff Var'][AnMet['Station'] == 'Wildcat'], 'red', linestyle='None',marker='x',label='Wildcat')
+             AnMet['Coeff Var'][AnMet['Station'] == 'Wildcat'], 'green', linestyle='None',marker='x',label='Wildcat')
     plt.legend(loc='upper right')
     #give the axis an object point
     ax = plt.gca() 
@@ -173,7 +173,7 @@ if __name__ == '__main__':
     plt.plot(AnMet.index[AnMet['Station'] == 'Tippe'],
              AnMet['Tqmean'][AnMet['Station'] == 'Tippe'], 'black', linestyle='None',marker='.')
     plt.plot(AnMet.index[AnMet['Station'] == 'Wildcat'],
-             AnMet['Tqmean'][AnMet['Station'] == 'Wildcat'], 'red', linestyle='None',marker='x')
+             AnMet['Tqmean'][AnMet['Station'] == 'Wildcat'], 'green', linestyle='None',marker='x')
     ax = plt.gca() 
     ax.axes.xaxis.set_ticklabels([])
     ax.xaxis.grid(which='major',color='gray',linewidth=0.5,linestyle='--',alpha=0.5)
@@ -183,11 +183,11 @@ if __name__ == '__main__':
     plt.plot(AnMet.index[AnMet['Station'] == 'Tippe'],
              AnMet['R-B Index'][AnMet['Station'] == 'Tippe'], 'black', linestyle='None',marker='.')
     plt.plot(AnMet.index[AnMet['Station'] == 'Wildcat'],
-             AnMet['R-B Index'][AnMet['Station'] == 'Wildcat'], 'red', linestyle='None',marker='x')
+             AnMet['R-B Index'][AnMet['Station'] == 'Wildcat'], 'green', linestyle='None',marker='x')
     #creates x-axis
     ax = plt.gca() 
     #set year values
-    ax.set_xticklabels(np.arange(2014,2019,1)) 
+    ax.set_xticklabels(np.arange(1969,2019,5)) 
     ax.tick_params(axis='x',labelrotation=40) 
     ax.xaxis.grid(which='major',color='gray',linewidth=0.5,linestyle='--',alpha=0.5)
     plt.ylabel('R-B Index')
@@ -199,7 +199,7 @@ if __name__ == '__main__':
     fig = plt.figure(figsize=(16,10)) 
     plt.plot(monthlysfTippe.index,monthlysfTippe['Mean Flow'],
              'black',linestyle='None',marker='.',label='Tippecanoe')
-    plt.plot(monthlysfWildcat.index,monthlysfWildcat['Mean Flow'],'red',
+    plt.plot(monthlysfWildcat.index,monthlysfWildcat['Mean Flow'],'green',
              linestyle='None',marker='x',label='Wildcat')
     plt.xticks(np.arange(1,13,1)) 
     plt.legend(loc='upper right')
@@ -241,7 +241,7 @@ if __name__ == '__main__':
     plt.plot(peakTippe_sort['Exceedence'],
              peakTippe_sort['Peak Flow'], 'black', linestyle='None',marker='.', label = 'Tippecanoe') 
     plt.plot(peakWildcat_sort['Exceedence'],
-             peakWildcat_sort['Peak Flow'], 'red', linestyle='None',marker='x', label = 'Wildcat')
+             peakWildcat_sort['Peak Flow'], 'green', linestyle='None',marker='x', label = 'Wildcat')
     ax = plt.gca()
     #set reversal of the x axis 
     ax.set_xlim(1,0) 
