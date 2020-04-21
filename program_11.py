@@ -142,7 +142,7 @@ if __name__ == '__main__':
     plt.ylabel('Discharge (cfs)')
     plt.legend(loc='upper right')
     plt.subplot(212)
-    plt.plot(Wildcat5Y.index,Wildcat5Y['Discharge'], 'red',label = 'Wildcat')
+    plt.plot(Wildcat5Y.index,Wildcat5Y['Discharge'], 'green',label = 'Wildcat')
     plt.xlabel('Date')
     plt.ylabel('Discharge (cfs)')
     plt.legend(loc='upper right') #adding legend
@@ -211,17 +211,38 @@ if __name__ == '__main__':
     #period of annual peak flow events
     peakWildcat = AnMet[AnMet['Station']=='Wildcat']
     peakTippe = AnMet[AnMet['Station'] == 'Tippe']
+    #drop unneeded columns or else the plot gets messy 
+    exceedence_tippe= peakTippe.drop(columns=['site_no', 'Mean Flow', 'Median Flow', 'Coeff Var', 'Skew', 'Tqmean', 'R-B Index', '7Q', '3xMedian'])
     #sort values for Tippe in descending order 
-    peakTippe_sort = peakTippe.sort_values('Peak Flow', ascending = False)
+    tippeFlow = exceedence_tippe.sort_values('Peak Flow', ascending = False)
+    #create structure to rank values
+    rank_tippe= stats.rankdata(tippeFlow['Peak Flow'], method='average') 
+    rank_tippe_2=rank_tippe[::-1]
+    exceedence_tippe=[(rank_tippe_2[i]/(len(tippeFlow)+1)) for i in range(len(tippeFlow))]
+    '''
+    ep_tippe=tippe_met.drop(columns=['site_no', 'Mean Flow', 'Median Flow', 'Coeff Var', 'Skew', 'Tqmean', 'R-B Index', '7Q', '3xMedian'])
+    tippe_flow=ep_tippe.sort_values('Peak Flow', ascending=False)
+    tippe_ranks1=stats.rankdata(tippe_flow['Peak Flow'], method='average')
+    tippe_ranks2=tippe_ranks1[::-1]
+    tippe_ep=[(tippe_ranks2[i]/(len(tippe_flow)+1)) for i in range(len(tippe_flow))]
+    '''
+    
     #assign rank to each value 
-    peakTippe_sort['Rank'] = np.arange(start = 1, stop = 51, step =1) 
+    #peakTippe_sort['Rank'] = np.arange(start = 1, stop = 51, step =1) 
     #calc exceedence 
-    peakTippe_sort['Exceedence'] = peakTippe_sort['Rank']/51
+    #peakTippe_sort['Exceedence'] = peakTippe_sort['Rank']/51
     #do the same for wildcat 
-    peakWildcat_sort = peakWildcat.sort_values('Peak Flow', ascending = False)
-    peakWildcat_sort['Rank'] = np.arange(start = 1, stop = 51, step =1) 
-    peakWildcat_sort['Exceedence'] = peakWildcat_sort['Rank']/51
-    fig = plt.figure(figsize=(12,10))
+    exceedence_wildcat= peakWildcat.drop(columns=['site_no', 'Mean Flow', 'Median Flow', 'Coeff Var', 'Skew', 'Tqmean', 'R-B Index', '7Q', '3xMedian'])
+    wildcatFlow = peakWildcat.sort_values('Peak Flow', ascending = False)
+    #peakWildcat_sort['Rank'] = np.arange(start = 1, stop = 51, step =1) 
+    #peakWildcat_sort['Exceedence'] = peakWildcat_sort['Rank']/51
+    #fig = plt.figure(figsize=(12,10))
+    
+    rank_wildcat=stats.rankdata(wildcatFlow['Peak Flow'], method='average') 
+    rank_wildcat_2=rank_wildcat[::-1]
+    exceedence_wildcat=[(rank_wildcat[i]/(len(wildcatFlow)+1)) for i in range(len(wildcatFlow))]
+    
+    '''
     #add exceednece values 
     plt.plot(peakTippe_sort['Exceedence'],
              peakTippe_sort['Peak Flow'], 'black', linestyle='None',marker='.', label = 'Tippecanoe') 
@@ -236,8 +257,20 @@ if __name__ == '__main__':
     ax.yaxis.grid(which='major',color='gray',linewidth=0.5,linestyle='--',alpha=0.5) 
     plt.savefig('exceedence_prob.png')
     plt.close()
-    
-    
+   '''
+   
+# Excendence Probability Plot 
+    fig = plt.figure(figsize=(16,10)) 
+    plt.plot(exceedence_tippe, peakTippe['Peak Flow'], label='Tippecanoe River', color='black')
+    plt.plot(exceedence_wildcat, peakWildcat['Peak Flow'], label='Wildcat River', color='green')
+    plt.xlabel("Exceedence Probability",fontsize=20)
+    plt.ylabel("Peak Discharge (CFS)",fontsize=20)
+    ax= plt.gca()
+    ax.set_xlim(1,0) #reverse x axis 
+    plt.tight_layout()
+    plt.legend(fontsize=20)
+    plt.savefig('ExceedenceProbability.png', dpi=96) #Save plot as PNG with 96 dpi   
+    plt.close()
     
     
     
