@@ -2,8 +2,14 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sat Apr 18 14:16:37 2020
-
+This program creates six plots for the following USGS Streamgauge sites in central Indiana.
+USGS 03331500 TIPPECANOE RIVER NEAR ORA, IN
+USGS 03335000 WILDCAT CREEK NEAR LAFAYETTE, IN
+This program creates six figures to be used in an oral, PowerPoint presentation highlighting the differences between the two rivers 
+This is done through icnluding definitions and plotting the metrics calculated in assignment 10
+Specific definitions and resulting plots are commented in the script below 
 @author: aetienne
+@github: aetienne93
 """
 
 import pandas as pd
